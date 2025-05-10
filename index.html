@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Imposter-Spiel</title>
+    <style>
+      body {
+        font-family: Arial;
+        text-align: center;
+        padding: 2rem;
+      }
+      #card {
+        font-size: 2rem;
+        border: 2px solid black;
+        padding: 50px;
+        margin-top: 20px;
+        display: none;
+        cursor: pointer;
+      }
+      #newRoundBtn {
+        display: none;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Imposter-Spiel</h1>
+    <label
+      >Spieleranzahl: <input type="number" id="playerCount" min="3"
+    /></label>
+    <button onclick="startGame()">Spiel starten</button>
+
+    <div id="card" onclick="showNextCard()">Klicken um Karte zu sehen</div>
+    <button id="newRoundBtn" onclick="startGame()">Neue Runde starten</button>
+
+    <script src="spiel.js"></script>
+  </body>
+</html>

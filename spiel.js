@@ -104,7 +104,7 @@ function showNextCard() {
   }, 2000);
 }
 
-//Chooser Game
+//Chooser
 const touchArea = document.getElementById('touch-area');
 const resultBox = document.getElementById('chooser-result');
 let touchPoints = [];
@@ -133,23 +133,23 @@ touchArea.addEventListener('touchstart', (e) => {
       const winnerIndex = Math.floor(Math.random() * touchPoints.length);
       touchPoints.forEach((point, i) => {
         if (i === winnerIndex) {
-          point.classList.add('winner');
+          point.classList.add('winner'); // Hier wird die Puls-Animation angewendet!
           resultBox.innerText = '🎉 Gewinner!';
         } else {
           point.style.opacity = 0.3;
         }
       });
-    }, 1500);
+    }, 1500); // Warten, um die Animation zu sehen
   }
 });
 
-touchArea.addEventListener('touchend', () => {
-  // Wenn keine Finger mehr da sind, dann aufräumen
-  if (event.touches.length === 0) {
+// Wenn die Finger das Touch-Areal verlassen
+touchArea.addEventListener('touchend', (e) => {
+  if (e.touches.length === 0) {
     setTimeout(() => {
-      touchPoints.forEach((p) => p.remove());
+      touchPoints.forEach((p) => p.remove()); // Entferne alle Punkte nach der Animation
       touchPoints = [];
       resultBox.innerText = '';
-    }, 1000);
+    }, 2000); // Warten, bis die Animation abgeschlossen ist
   }
 });

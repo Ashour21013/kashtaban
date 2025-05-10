@@ -115,10 +115,14 @@ touchArea.addEventListener('touchstart', (e) => {
 
   // Alle Touchpunkte anzeigen
   Array.from(e.touches).forEach((touch) => {
+    const rect = touchArea.getBoundingClientRect();
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+
     const point = document.createElement('div');
     point.classList.add('touch-point');
-    point.style.left = touch.clientX + 'px';
-    point.style.top = touch.clientY + 'px';
+    point.style.left = `${x}px`;
+    point.style.top = `${y}px`;
     touchArea.appendChild(point);
     touchPoints.push(point);
   });
@@ -140,9 +144,12 @@ touchArea.addEventListener('touchstart', (e) => {
 });
 
 touchArea.addEventListener('touchend', () => {
-  // Nach Ende: aufräumen
-  setTimeout(() => {
-    touchPoints.forEach((p) => p.remove());
-    resultBox.innerText = '';
-  }, 1000);
+  // Wenn keine Finger mehr da sind, dann aufräumen
+  if (event.touches.length === 0) {
+    setTimeout(() => {
+      touchPoints.forEach((p) => p.remove());
+      touchPoints = [];
+      resultBox.innerText = '';
+    }, 1000);
+  }
 });

@@ -104,4 +104,45 @@ function showNextCard() {
   }, 2000);
 }
 
+//Chooser Game
+const touchArea = document.getElementById('touch-area');
+const resultBox = document.getElementById('chooser-result');
+let touchPoints = [];
 
+touchArea.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  touchPoints = [];
+
+  // Alle Touchpunkte anzeigen
+  Array.from(e.touches).forEach((touch) => {
+    const point = document.createElement('div');
+    point.classList.add('touch-point');
+    point.style.left = touch.clientX + 'px';
+    point.style.top = touch.clientY + 'px';
+    touchArea.appendChild(point);
+    touchPoints.push(point);
+  });
+
+  // Warten und dann einen zufällig auswählen
+  if (e.touches.length >= 2) {
+    setTimeout(() => {
+      const winnerIndex = Math.floor(Math.random() * touchPoints.length);
+      touchPoints.forEach((point, i) => {
+        if (i === winnerIndex) {
+          point.classList.add('winner');
+          resultBox.innerText = '🎉 Gewinner!';
+        } else {
+          point.style.opacity = 0.3;
+        }
+      });
+    }, 1500);
+  }
+});
+
+touchArea.addEventListener('touchend', () => {
+  // Nach Ende: aufräumen
+  setTimeout(() => {
+    touchPoints.forEach((p) => p.remove());
+    resultBox.innerText = '';
+  }, 1000);
+});

@@ -9,7 +9,7 @@ async function fetchRandomWord() {
     return data[0];
   } catch (error) {
     console.error('Fehler beim Abrufen des Wortes:', error);
-    return 'Geheimwort'; // Fallback
+    return 'Geheimwort';
   }
 }
 
@@ -20,12 +20,17 @@ async function startGame() {
     return;
   }
 
+  // Es gibt (playerCount) normale Karten und zusätzlich eine Impostor-Karte
+  cards = [];
   const word = await fetchRandomWord();
-  cards = Array(playerCount).fill(word);
-  const imposterIndex = Math.floor(Math.random() * playerCount);
-  cards[imposterIndex] = 'Impostor';
+  for (let i = 0; i < playerCount; i++) {
+    cards.push(word);
+  }
 
-  //Sort cards
+  // Impostor hinzufügen
+  cards.push('Impostor');
+
+  // Karten mischen
   cards = cards.sort(() => Math.random() - 0.5);
 
   currentCardIndex = 0;
@@ -34,15 +39,16 @@ async function startGame() {
   document.getElementById('card').style.display = 'block';
   document.getElementById('card').innerText =
     'Spieler 1: Klicken um deine Karte zu sehen';
+  document.getElementById('card').style.backgroundColor = '';
   document.getElementById('newRoundBtn').style.display = 'none';
 }
 
 function showNextCard() {
   if (!isClickAble) return;
-  cardEl = document.getElementById('card');
+  const cardEl = document.getElementById('card');
 
   if (currentCardIndex >= cards.length) {
-    document.getElementById('card').innerText = 'Alle Karten wurden gezeigt.';
+    cardEl.innerText = 'Alle Karten wurden gezeigt.';
     document.getElementById('newRoundBtn').style.display = 'inline-block';
     return;
   }
@@ -50,20 +56,20 @@ function showNextCard() {
   const cardText = cards[currentCardIndex];
   cardEl.innerText = `Deine Karte: ${cardText}`;
   cardEl.style.backgroundColor =
-    cardText === 'Impostor' ? '#ff4c4c' : '#4caf50'; // rot oder grün
+    cardText === 'Impostor' ? '#ff4c4c' : '#4caf50';
 
   currentCardIndex++;
   isClickAble = false;
 
   setTimeout(() => {
     if (currentCardIndex < cards.length) {
-      document.getElementById('card').innerText = `Spieler ${
+      cardEl.innerText = `Spieler ${
         currentCardIndex + 1
       }: Klicken um deine Karte zu sehen`;
-      isClickAble = true;
       cardEl.style.backgroundColor = '';
+      isClickAble = true;
     } else {
-      document.getElementById('card').innerText = 'Alle Karten wurden gezeigt.';
+      cardEl.innerText = 'Alle Karten wurden gezeigt.';
       document.getElementById('newRoundBtn').style.display = 'inline-block';
     }
   }, 2000);

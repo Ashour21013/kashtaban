@@ -1,3 +1,30 @@
+//Nav Logik
+document.querySelectorAll('.navbar-nav .nav-link').forEach((link) => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Aktive Klasse aktualisieren
+    document
+      .querySelectorAll('.nav-link')
+      .forEach((l) => l.classList.remove('active'));
+    this.classList.add('active');
+
+    const selectedGame = this.getAttribute('data-game');
+
+    // Alle Spielcontainer verstecken
+    document.querySelectorAll('.game-container').forEach((div) => {
+      div.classList.add('d-none');
+    });
+
+    // Gewähltes Spiel anzeigen
+    const target = document.getElementById('game-' + selectedGame);
+    if (target) {
+      target.classList.remove('d-none');
+    }
+  });
+});
+
+//Imposter Game
 let cards = [];
 let currentCardIndex = 0;
 let isClickAble = true;
@@ -41,6 +68,8 @@ async function startGame() {
     'Spieler 1: Klicken um deine Karte zu sehen';
   document.getElementById('card').style.backgroundColor = '';
   document.getElementById('newRoundBtn').style.display = 'none';
+
+  document.getElementById('counter').classList.add('d-none');
 }
 
 function showNextCard() {
@@ -74,3 +103,5 @@ function showNextCard() {
     }
   }, 2000);
 }
+
+

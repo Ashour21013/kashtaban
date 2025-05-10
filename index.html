@@ -25,33 +25,70 @@
     </style>
   </head>
   <body class="bg-light">
-    <div class="container text-center py-5">
-      <h1 class="mb-4">🎭 Imposter-Spiel</h1>
-
-      <div class="row justify-content-center mb-3">
-        <div class="col-md-4">
-          <label for="playerCount" class="form-label">Spieleranzahl:</label>
-          <input
-            type="number"
-            id="playerCount"
-            class="form-control"
-            min="3"
-            placeholder="Mindestens 3"
-          />
+    <!--Nav-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Kashtaban</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#" data-game="imposter">Imposter</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" data-game="werbinich">Wer bin ich?</a>
+                </li>
+              </ul>
+              
         </div>
       </div>
+    </nav>
 
-      <button class="btn btn-primary" onclick="startGame()">
-        Spiel starten
-      </button>
+    <div class="container text-center py-5">
 
-      <div id="card" class="my-4 mx-auto w-75" onclick="showNextCard()">
-        Klicken um Karte zu sehen
+    <!--Imposter Game-->
+      <div id="game-imposter" class="game-container">
+        <h1 class="mb-4">🎭 Imposter-Spiel</h1>
+
+        <div id="counter" class="row justify-content-center mb-3">
+          <div class="col-md-4">
+            <input
+              type="number"
+              id="playerCount"
+              class="form-control"
+              min="3"
+              placeholder="Mindestens 3"
+            />
+          </div>
+        </div>
+  
+        <button class="btn btn-primary" onclick="startGame()">
+          Spiel starten
+        </button>
+  
+        <div id="card" class="my-4 mx-auto w-75" onclick="showNextCard()">
+          Klicken um Karte zu sehen
+        </div>
+  
+        <button id="newRoundBtn" class="btn btn-success" onclick="startGame()">
+          Neue Runde starten
+        </button>
       </div>
 
-      <button id="newRoundBtn" class="btn btn-success" onclick="startGame()">
-        Neue Runde starten
-      </button>
+      <!--Other game-->
+      
+      <div id="game-werbinich" class="game-container d-none">
+        <div class="container text-center py-5">
+          <h2>Wer bin ich?</h2>
+          <p>Dieses Spiel ist noch in Arbeit...</p>
+        </div>
     </div>
 
     <script src="spiel.js"></script>
